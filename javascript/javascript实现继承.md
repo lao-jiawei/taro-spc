@@ -324,6 +324,66 @@ sub1.sayHi();	//'hello'
 
 ## 方法七：寄生组合继承
 
+![](https://gitee.com/lao-jiawei/photo-gallery/raw/master/images/20230530-3.jpg)
+
+步骤1：**新**创建父类，给父类添加方法
+
+````javascript
+function Parent6() {
+  this.name = 'parent6';
+  this.play = [1, 2, 3];
+}
+Parent6.prototype.getName = function () {
+  return this.name;
+}
+````
+
+==步骤2：创建子类，回调继承父类属性（关键点）==
+
+````javascript
+function Child6() {
+  Parent6.call(this);	//继承服父类的属性
+  this.friends = 'child6';
+}
+````
+
+==步骤3：借助函数，父子类关联（关键点）==
+
+````javascript
+function clone(parent, child) {
+  // 这里改用 Object.create 就可以减少组合继承中多进行一次构造的过程
+  child.prototype = Object.create(parent.prototype);
+  child.prototype.constructor = child;
+}
+
+clone(Parent6, Child6);
+````
+
+> ==PS:子类构造器等于父类对象==
+>
+> 【证明】
+>
+> ````javascript
+> console.log(child.prototype.constructor == parent); //true
+> ````
+
+步骤4：给子类追加方法
+
+````javascript
+Child6.prototype.getFriends = function () {
+  return this.friends;
+}
+````
+
+步骤5：验证继承
+
+````javascript
+let person6 = new Child6();
+console.log(person6);	//输出：带有父类属性的对象>>>>>>证明：实现子类继承父类属性
+console.log(person6.getName());	//输出：parent6>>>>证明：实现子类继承父类的方法
+console.log(person6.getFriends());//输出：child6>>>证明：子类可以追加方法
+````
+
 <br>
 
 # 文献参考
