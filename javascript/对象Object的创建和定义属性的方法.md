@@ -97,7 +97,7 @@ let person1=new Person("Lao",22,"Software Engineer");
 let person2=new Person("Jia",23,"frontEnd Engineer");
 ````
 
-* 对比工厂模式
+* 对比[工厂模式](# 工厂模式)
 
   * 特点：
     1. 没有显式地创建对象。（即没有在内部new Object）；
@@ -180,7 +180,7 @@ let Person=function(){}
 Person.prototype.name="Lao";
 Person.prototype.age=22;
 Person.prototype.job="Software Engineer";
-Person.prototype.sayName=function(){
+Person.prototype.sayName=function(){		//方法直接添加到对象的prototype属性上
   console.log(this.name);
 }
 
@@ -188,3 +188,6 @@ let person1 = new Person();
 let person2 = new Person();
 ````
 
+* 对比[构造函数模式](# 构造函数模式)
+  * 优点
+    1. 原型模式定义的属性和方法是由所有实例共享的。（即访问的方法是同一个）
