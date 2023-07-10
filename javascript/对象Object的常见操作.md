@@ -31,8 +31,55 @@ obj['target']='change new word';
 
 # 查找对象是否存在该属性
 
-````javascript
+方法一：in
 
+````javascript
+const obj={
+  a:1,
+  b:2,
+  c:3,
+  d:4,
+}
+console.log('a' in obj)//true
+console.log('e' in obj)//false
+````
+
+* 无论该属性是在实例上还是在原型上 
+  * true：存在该对象的原型或实例上
+  * false：该对象原型或实例都不存在该属性
+
+方法二：hasOwnProperty()
+
+````javascript
+function Person(){}
+Person.prototype.name = "Lao";
+Person.prototype.age = 22;
+Person.prototype.job = "Software Engineer";
+let person1 = new Person();
+let person2 = new Person();
+console.log(person1.hasOwnProperty("name")); // false
+
+person1.name = "Jia";
+console.log(person1.name); // "Jia"，来自实例
+console.log(person1.hasOwnProperty("name")); // true
+````
+
+* 用来确认某个属性是在实例上还是原型对象上。
+  * true：属性在实例上。
+  * false：属性不在实例上。
+
+方法三：列出该对象的所有属性，看是否包含
+
+````javascript
+const obj={
+  a:1,
+  b:2,
+  c:3,
+  d:4,
+}
+let keys = Object.getOwnPropertyNames(obj.prototype); //列出所有【实例】属性 [a,b,c,d]
+keys.includes('a')//true;
+keys.includes('e')//false;
 ````
 
 # 拷贝对象
